@@ -2,7 +2,7 @@
 install.packages("rvest")
 install.packages("xml2")
 install.packages("XML")
-
+install.packages("tidyverse")
 #Create a temp file to download de dictionary
 tmpv <- tempfile()
 raw.file <- "https://nvd.nist.gov/feeds/xml/cpe/dictionary/official-cpe-dictionary_v2.3.xml.gz"
@@ -37,3 +37,5 @@ cpes$target_sw <- as.factor(cpes$target_sw)
 cpes$version <- as.factor(cpes$version)
 #Finally, put all relevant elements in a vector
 df_final <- cpes %>% select(product,version,vendor,part,sw_edition,target_hw,target_sw)
+#Export the R variable as a RDS object
+saveRDS(df_final, file = "dataframe.rds")
