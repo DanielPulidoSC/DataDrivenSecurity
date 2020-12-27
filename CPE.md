@@ -19,9 +19,9 @@ Next, we are going to show and describe each item on [dictionary](https://nvd.ni
 
 The cpe-list include two kind of elements: generator and cpe-item.         
 
-	**generator**: The GeneratorType complex type defines an element that is used to hold information about when a particular document was compiled, what version of the schema was used, what tool compiled the document, and what version of that tool was used.
+ **generator**: The GeneratorType complex type defines an element that is used to hold information about when a particular document was compiled, what version of the schema was used, what tool compiled the document, and what version of that tool was used.
 
-	**cpe-item**: The cpe-item element denotes a single CPE Name. The required name attribute is a URI which must be a unique key and should follow the URI structure outlined in the CPE Specification. The optional title element is used to provide a human-readable title for the platform. To support uses intended for multiple languages, this element supports the ‘xml:lang’ attribute. At most one title element can appear for each language. There are other optional elements as notes or checks.
+ * **cpe-item**: The cpe-item element denotes a single CPE Name. The required name attribute is a URI which must be a unique key and should follow the URI structure outlined in the CPE Specification. The optional title element is used to provide a human-readable title for the platform. To support uses intended for multiple languages, this element supports the ‘xml:lang’ attribute. At most one title element can appear for each language. There are other optional elements as notes or checks.
 	The cpe-item contains a list of available items:
 	
 	**name (attribute)**: The identifier name bound in CPE 2.2 format
