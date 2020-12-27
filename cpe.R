@@ -1,7 +1,7 @@
 #First of all, we install all package required
-#install.packages("rvest")
-#install.packages("xml2")
-#install.packages("XML")
+install.packages("rvest")
+install.packages("xml2")
+install.packages("XML")
 
 #Create a temp file to download de dictionary
 tmpv <- tempfile()
@@ -35,3 +35,5 @@ cpes$sw_edition <- as.factor(cpes$sw_edition)
 cpes$target_hw <- as.factor(cpes$target_hw)
 cpes$target_sw <- as.factor(cpes$target_sw)
 cpes$version <- as.factor(cpes$version)
+#Finally, put all relevant elements in a vector
+df_final <- cpes %>% select(product,version,vendor,part,sw_edition,target_hw,target_sw)
