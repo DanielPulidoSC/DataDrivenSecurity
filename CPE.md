@@ -17,7 +17,7 @@ Next, we are going to show and describe each item on [dictionary](https://nvd.ni
 
 **cpe-list**: The cpe-list element acts as a top-level container for CPE Name items. Each individual item must be unique. It includes the ListType complex type defines an element that is used to hold a collection of individual items. The required generator section provides information about when the definition file was compiled and under what version.
 
-        The cpe-list include two kind of elements: generator and cpe-item.         
+The cpe-list include two kind of elements: generator and cpe-item.         
 
 	**generator**: The GeneratorType complex type defines an element that is used to hold information about when a particular document was compiled, what version of the schema was used, what tool compiled the document, and what version of that tool was used.
 
