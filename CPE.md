@@ -7,6 +7,12 @@ Last but not least, the CPE dictionary contents names and metadata to classify a
 
 ![CPE_model](/images/cpe_stack.png)
 
+The CPE version 2.3 specifications, including this specification, collectively replace [CPE22].CPE version 2.3 is intended to provide all the capabilities made available by [CPE22] while adding new features suggested by the CPE user community.
+The primary differences between CPE Dictionary versions 2.2 and 2.3 include:
+1. Updated deprecation logic that includes one-to-many CPE deprecation
+2. Updated change history and provenance data requirements
+3. Built-in one-to-one mappingbetween CPE version 2.2 and version 2.3 names; the version 2.3 name is embedded in the version 2.2 name so that the instance document will validate against the version 2.2 schema.
+
 Next, we are going to show and describe each item on [dictionary](https://nvd.nist.gov/feeds/xml/cpe/dictionary/official-cpe-dictionary_v2.3.xml.zip) and its attributes in the [standardized schema](https://csrc.nist.gov/schema/cpe/2.3/cpe-dictionary_2.3.xsd) so we can decide which are the most interesting parameters to get and tidy the data frame.
 
 **cpe-list**: The cpe-list element acts as a top-level container for CPE Name items. Each individual item must be unique. It includes the ListType complex type defines an element that is used to hold a collection of individual items. The required generator section provides information about when the definition file was compiled and under what version.
