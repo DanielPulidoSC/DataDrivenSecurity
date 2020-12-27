@@ -26,20 +26,20 @@ The cpe-list include two kind of elements: generator and cpe-item.
 	
     * **name (attribute)**: The identifier name bound in CPE 2.2 format
  
-  * **deprecated (attribute)**: Whether or not the name has been deprecated. Default value is false.
+    * **deprecated (attribute)**: Whether or not the name has been deprecated. Default value is false.
  
-   * **deprecated_by (attribute)**: The name that deprecated this name, bound in CPE 2.2 format.
+    * **deprecated_by (attribute)**: The name that deprecated this name, bound in CPE 2.2 format.
 
     * **deprecation_date (attribute)**: When the name was deprecated.
 
- * **title (element)**: Human-readable title of the name.To support uses intended for multiple languages, the<cpe_dict:title>element supports the @xml:langattribute. At most one <cpe_dict:title>element MAY appear for each language.
+    * **title (element)**: Human-readable title of the name.To support uses intended for multiple languages, the<cpe_dict:title>element supports the @xml:langattribute. At most one <cpe_dict:title>element MAY appear for each language.
 
- * **notes (element)**: Optional descriptive material. To support uses intended for multiple languages, the <cpe_dict:notes>element supports the @xml:langattribute. At most one <cpe_dict:notes>element MAYappear for eachlanguage. 
+    * **notes (element)**: Optional descriptive material. To support uses intended for multiple languages, the <cpe_dict:notes>element supports the @xml:langattribute. At most one <cpe_dict:notes>element MAYappear for eachlanguage. 
 
- * **reference (element)** : The ReferencesType complex type defines an element used to hold a collection of individual references. Each reference consists of a piece of text (intended to be human-readable) and a URI (intended to be a URL, and point to a real resource) and is used to point to extra descriptive material, for example a supplier's web site or platform documentation.
+    * **reference (element)** : The ReferencesType complex type defines an element used to hold a collection of individual references. Each reference consists of a piece of text (intended to be human-readable) and a URI (intended to be a URL, and point to a real resource) and is used to point to extra descriptive material, for example a supplier's web site or platform documentation.
 
- * **check (element)**: The CheckType complex type is used to define an element to hold information about an individual check. It includes a checking system specification URI, string content, and an optional external file reference. The checking system specification should be the URI for a particular version of OVAL or a related system testing language, and the content will be an identifier of a test written in that language. The external file reference could be used to point to the file in which the content test identifier is defined. 
+    * **check (element)**: The CheckType complex type is used to define an element to hold information about an individual check. It includes a checking system specification URI, string content, and an optional external file reference. The checking system specification should be the URI for a particular version of OVAL or a related system testing language, and the content will be an identifier of a test written in that language. The external file reference could be used to point to the file in which the content test identifier is defined. 
 
- * **cpe23-item (element)**: Element that captures all CPE 2.3 specific data including the CPE 2.3 formatted string binding of the name, provenance data, and deprecation data.
+    * **cpe23-item (element)**: Element that captures all CPE 2.3 specific data including the CPE 2.3 formatted string binding of the name, provenance data, and deprecation data.
 
 
