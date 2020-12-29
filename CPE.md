@@ -45,10 +45,10 @@ The cpe-list include two kind of elements: generator and cpe-item.
 
 The Well Formed CPE Named is the main unit of the CPE standarda. It could contains the next elements:
     
-    * part -> The part attribute SHALL have one of these three string values: 'a' when the CPE is for a class of applications, 'o' when the WFN is for a class of operating systems and 'h' when the WFN is for a class of hardware devices.
-    * vendor -> Values for this attribute SHOULD describe or identify the person or organization that manufactured or created the product.
-    * product -> Values for this attribute SHOULD describe or identify the most common and recognizable title or name of the product. 
-    * version -> Values for this attribute SHOULD be vendor-specific alphanumeric strings characterizing the particular release version of the product.
+* part -> The part attribute SHALL have one of these three string values: 'a' when the CPE is for a class of applications, 'o' when the WFN is for a class of operating systems and 'h' when the WFN is for a class of hardware devices.
+* vendor -> Values for this attribute SHOULD describe or identify the person or organization that manufactured or created the product.
+ * product -> Values for this attribute SHOULD describe or identify the most common and recognizable title or name of the product. 
+* version -> Values for this attribute SHOULD be vendor-specific alphanumeric strings characterizing the particular release version of the product.
     * update -> Values for this attribute SHOULD be vendor-specific alphanumeric strings characterizing the particular update, service pack, or point release of the product.
     * edition -> The edition attribute is considered deprecated in this specification, and it SHOULD be assigned the logical value ANY except where required for backward compatibility with version 2.2 of the CPE specification. This attribute is referred to as the “legacy edition” attribute.
     * language -> Values for this attribute SHALL be valid language tags as defined by [RFC5646], and SHOULD be used to define the language supported in the user interface of the product being described.
