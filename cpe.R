@@ -26,7 +26,6 @@ new.cols <- c("std", "std.v", "part", "vendor", "product",
 "target_sw", "target_hw", "other")
 #Replace backslashes by semicolon
 cpes$cpe.23 <- stringr::str_replace_all(cpes$cpe.23, "\\\\:",";")
-cpes$cpe.22 <- stringr::str_replace_all(cpes$cpe.22, "\\\\:",";")
 #Separate the data of cpe.23 (all items) in new.cols vector that contains each element separated
 #by semicolon and not removing the input data from output dataframe
 cpes <- tidyr::separate(data = cpes, col = "cpe.23", into = new.cols, sep = ":", remove = F)
