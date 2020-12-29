@@ -3,6 +3,10 @@ install.packages("rvest")
 install.packages("xml2")
 install.packages("XML")
 install.packages("tidyverse")
+library(rvest)
+library(xml2)
+library(XML)
+library(tidyverse)
 #Create a temp file to download de dictionary
 tmpv <- tempfile()
 raw.file <- "https://nvd.nist.gov/feeds/xml/cpe/dictionary/official-cpe-dictionary_v2.3.xml.gz"
