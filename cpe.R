@@ -22,12 +22,14 @@ new.cols <- c("std", "std.v", "part", "vendor", "product",
 "target_sw", "target_hw", "other")
 #Replace backslashes by semicolon
 cpes$cpe.23 <- stringr::str_replace_all(cpes$cpe.23, "\\\\:",";")
-#Separate the data of cpe.23 (all items) in new.cols vector that contains each element separated 
+cpes$cpe.22 <- stringr::str_replace_all(cpes$cpe.22, "\\\\:",";")
+#Separate the data of cpe.23 (all items) in new.cols vector that contains each element separated
 #by semicolon and not removing the input data from output dataframe
 cpes <- tidyr::separate(data = cpes, col = "cpe.23", into = new.cols, sep = ":", remove = F)
 #Select colums std and std.v from cpes data frame and remove from df because all have the same value
 cpes <- dplyr::select(.data = cpes, -std, -std.v)
 #Convert important elements of dataframe in factors to operate on them
+cpes$cpe.23 <- as.factor(cpes$cpe.23)
 cpes$vendor <- as.factor(cpes$vendor)
 cpes$part <- as.factor(cpes$part)
 cpes$product <- as.factor(cpes$product)
@@ -36,6 +38,6 @@ cpes$target_hw <- as.factor(cpes$target_hw)
 cpes$target_sw <- as.factor(cpes$target_sw)
 cpes$version <- as.factor(cpes$version)
 #Finally, put all relevant elements in a vector
-df_final <- cpes %>% select(product,version,vendor,part,sw_edition,target_hw,target_sw)
+df_final <- cpes %>% select(cpe.23,product,version,vendor,part,sw_edition,target_hw,target_sw)
 #Export the R variable as a RDS object
 saveRDS(df_final, file = "dataframe.rds")
