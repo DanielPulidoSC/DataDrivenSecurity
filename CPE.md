@@ -43,7 +43,7 @@ The cpe-list include two kind of elements: generator and cpe-item.
     * **cpe23-item (element)**: Element that captures all CPE 2.3 specific data including the CPE 2.3 formatted string binding of the name, provenance data, and deprecation data.
 
 
-The Well Formed CPE Named is the main unit of the CPE standarda. It could contains the next elements:
+The Well Formed CPE Named is the main unit of the CPE standard. It could contains the next elements:
     
 * part -> The part attribute SHALL have one of these three string values: 'a' when the CPE is for a class of applications, 'o' when the WFN is for a class of operating systems and 'h' when the WFN is for a class of hardware devices.
 * vendor -> Values for this attribute SHOULD describe or identify the person or organization that manufactured or created the product.

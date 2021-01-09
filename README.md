@@ -8,3 +8,16 @@ Fichero en R que descarga el data feed, lo trata y lo convierte en el data frame
 
 # CPE.md
 Documento de analisis del estandard de seguridad CPE y sus diferentes elementos en el schema
+
+# Variables interesantes
+
+Como hemos ido hablando, nos vamos a quedar con las siguientes variables:
+
+* cpe.23
+* vendor
+* part
+* product
+* sw_edition
+* target_hw
+* target_sw
+* version
