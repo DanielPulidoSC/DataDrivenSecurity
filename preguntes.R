@@ -351,15 +351,15 @@ rel_cwe_cve_father <- raw_cwes$cwenet$edges[which(raw_cwes$cwenet$edges$from %in
 rel_cwe_cve_father[1:66]
 #raw_cves$cve[which(raw_cves$cve$cve.id %in% rel_cwe_cve_father[1:66]),]$description
 ```
-tenemos una larga lista de CVE's que la mayoria se basa en permisos inadecuados o descuidados hacia los ficheros
-Por ejemplo, esta: XTerm in Apple Mac OS X 10.4.11 and 10.5.6, when used with luit, creates tty devices with insecure world-writable permissions, which allows local users to write to the Xterm of another user.
+Tenemos una larga lista de CVE's.
 
 
 ## 1.8 CPE
 ```{r }
 which(raw_cpes$cpenet$edges$to %in% rel_cwe_cve)
 ```
-No hay relacion de los CVE con CPE a traves del edges pero si si miramos en el parametro de los CVE vulnerable configuration
+No hay relacion de los CVE con CPE a traves del edges pero sí, si miramos en el parametro de los CVE vulnerable configuration.
+
 
 ## Organizations
 ```{r }
@@ -397,12 +397,11 @@ __TODO: Actualizar y completar el modelo__
 # Análisis
 
 ## ¿Quien estaba detras de los ataques?
-Los indicios obtenidos en la sección 1.3.3 nos apuntan a un total de 56 grupos pero los más importantes por ocurrencias serian el G0045 (menuPass) en primera posición y despues los grupos G0114 (Chimera), G0096 (APT41), G0074 (Dragonfly 2.0), G0065 (Leviathan), G0061 (FIN8), G0050(APT32), G0049(OilRig) y G0027(Threat Group-3390).
+Los indicios obtenidos (sección 1.3.3) nos apuntan a un total de 56 grupos pero los más importantes por ocurrencias serian el G0045 (menuPass) en primera posición y despues los grupos G0114 (Chimera), G0096 (APT41), G0074 (Dragonfly 2.0), G0065 (Leviathan), G0061 (FIN8), G0050(APT32), G0049(OilRig) y G0027(Threat Group-3390).
 
 ```{r }
 sort(table(mitrenet_car_to$from[which(mitrenet_car_to$from %in% raw_attck$groups$mitreid)]))
 ```
-
 
 Tenemos unos cuantos grupos que son chinos o bien estan financiados/alentados por el estado chino como son menuPass, Chimera, APT41 y Threat Group-3390. Habría tambien un ruso como Dragonfly 2.0, un iraniano como OilRig y un vietnamita como APT32. Leaviathan no lo podríamos encuadrar muy bien pero tiene cosas interesantes tambien como que ataca a EEUU, Europa del este y Asia del Sur y FIN8 a unos sectores especificos.
 
@@ -420,7 +419,7 @@ Leaviathan -> Government organizations, industries including engineering firms, 
 
 FIN8 -> Retail, restaurant, and hospitality industries.
 
-APT-32 -> Private sector industries, foreign governments, dissidents, and journalists.
+APT32 -> Private sector industries, foreign governments, dissidents, and journalists.
 
 OilRig -> Industries, including financial, government, energy, chemical, and telecommunications. 
 
@@ -438,7 +437,7 @@ y las organizaciones mas atacadas son las siguientes.
 plot(x = tail(sort(table(as.character(incident_unique$org)))))
 ```
 
-
+Para profundizar más, nos hubiera faltado correlacionar tambien los sistemas atacados con las organizaciones y los motivos por los cuales fueron atacadas.
 
 ## ¿Cómo realizaron los ataques?
 
@@ -450,7 +449,16 @@ Por otro lado, con la tactica de 'Defense evasion' se quiere pasar desapercibido
 
 Finalmente, con la tactica de 'Execution', ejecutaron codigo malicioso para explorar la red y robar datos.
 
-Ahora pasaremos a observar el software malicioso clasificado por grupos:
+En CAPEC (sección 1.5), hemos encontrado que mediante la creación de ficheros con el mismo nombre que ficheros legitimos o protegidos pueden camuflar su ataque(CAPEC-177) a través de la subida de ficheros o la ejecución en servidores web, ftp, etc (CAPEC-17). Tambien con las bajada de software malicioso (no analizado), a través de un servidor (ilegitimo) para instalar o descargar actualizaciones, se han podido introducir malware (CAPEC-187). Los atacantes tambien podrían haber estudiado el funcionamiento de systemas y aplicaciones mediante 'Reverse Engineering' para sacarle partido (CAPEC-186).
+
+Las vulnerabilidades asociadas a estos CAPEC's, las hemos encontrado en CWE (sección 1.6). Los atacantes han podido usar nombres o referencias fuera del alcance de control (CWE-706) y descargar archivos y ejecutarños como hemos comentado con CAPEC ya que no había suficiente supervisión del origen y integridad del codigo (CWE-494).
+
+Todo esto nos lleva a vulnerabilidades de CVE (sección 1.7) donde las siguientes aplicaciones son comprometidas a través de actualizaciones. Se permite un man-in-the-middle-attac con MacOS (CVE-2008-3438), con la aplicación PartyGaming PartyPoker (CVE-2008-3324), una ejecución de codigo remoto a través de DNS spoofing en Symantec LiveUpdate (CVE-2001-1125) y en Pingtel xpressa (CVE-2002-0671).
+
+Encontramos en el parametro vulnerable.configuration de cada CVE, unas cuantas CPE. En el CVE-2008-3438, las versiones de MacOS (10.0-10.5.4) estarían afectadas. En el CVE-2008-3324 la PartyPoker 120/121 y en la CVE-2001-1125, la Symantec LiveUpdate 1.4 y 1.5. Por ultimo, la CVE-2002-0671, estarían afectadas
+la Pingtel 1.2.5 y la 1.2.7.4.
+
+Ahora pasaremos a observar el software malicioso clasificado por grupos (sección 1.3.4):
 
 menuPass: Usó el troyano [ChChes] para atacar a organizaciones japonesas y como no tiene persistencia, seria una herramienta de fase inicial. Tambien utilizan la 'backdoor' [UPPERCUT] para mantener el acceso.
  
@@ -458,36 +466,43 @@ APT41: Utilizaron [ZxShell] esta backdoor y herramienta de administración remot
 
 Dragonfly 2.0: Emplearon [Trojan.Karagany] como herramienta de malwaremodular de acceso remoto para reconocimiento de red y [MCMD] como consola remota, ambas en Windows.
 
-Leviathan: 
+Leviathan: Usó [NanHaiShu] como herramienta de acceso remoto y backdoor de JScript. Otra backdoor empleada de Javascript es [Orz].
 
+FIN8: Desplegó [PUNCHBUGGY] que es una backdoor de malware.
 
- [14] "[BONDUPDATER](https://attack.mitre.org/software/S0360) is a PowerShell backdoor used by [OilRig](https://attack.mitre.org/groups/G0049). It was first observed in November 2017 during targeting of a Middle Eastern government organization, and an updated version was observed in August 2018 being used to target a government organization with spearphishing emails.(Citation: FireEye APT34 Dec 2017)(Citation: Palo Alto OilRig Sep 2018)"                                                                                                                              
- [44] "[Denis](https://attack.mitre.org/software/S0354) is a Windows backdoor and Trojan used by [APT32](https://attack.mitre.org/groups/G0050). [Denis](https://attack.mitre.org/software/S0354) shares several similarities to the [SOUNDBITE](https://attack.mitre.org/software/S0157) backdoor and has been used in conjunction with the [Goopy](https://attack.mitre.org/software/S0477) backdoor.(Citation: Cybereason Oceanlotus May 2017)"                                                                                                                                                                                                                                                                     
- [75] "[HyperBro](https://attack.mitre.org/software/S0398) is a custom in-memory backdoor used by [Threat Group-3390](https://attack.mitre.org/groups/G0027).(Citation: Unit42 Emissary Panda May 2019)(Citation: Securelist LuckyMouse June 2018)(Citation: Hacker News LuckyMouse June 2018)"                                                                                                                                                                                                                                                                    [83] "[KOMPROGO](https://attack.mitre.org/software/S0156) is a signature backdoor used by [APT32](https://attack.mitre.org/groups/G0050) that is capable of process, file, and registry management. (Citation: FireEye APT32 May 2017)"                                                                              
- [116] "[OSX_OCEANLOTUS.D](https://attack.mitre.org/software/S0352) is a MacOS backdoor that has been used by [APT32](https://attack.mitre.org/groups/G0050).(Citation: TrendMicro MacOS April 2018)"   
- 
- [116] "[OSX_OCEANLOTUS.D](https://attack.mitre.org/software/S0352) is a MacOS backdoor that has been used by [APT32](https://attack.mitre.org/groups/G0050).(Citation: TrendMicro MacOS April 2018)"  
+APT32: Utilizaron [Denis] como backdoor y troyano de Windows y [KOMPROGO] como backdoor de signaturas. Para MacOS usaron la backdoor [OSX_OCEANLOTUS.D].
 
+OilRig: Emplearon [BONDUPDATER] como backdoor de Powershell y [RDAT] como backdoor. Usaron tambien [OopsIE] como troyano. 
 
-[109] "[NanHaiShu](https://attack.mitre.org/software/S0228) is a remote access tool and JScript backdoor used by [Leviathan](https://attack.mitre.org/groups/G0065). [NanHaiShu](https://attack.mitre.org/software/S0228) has been used to target government and private-sector organizations that have relations to the South China Sea dispute. (Citation: Proofpoint Leviathan Oct 2017) (Citation: fsecure NanHaiShu July 2016)" 
+Threat-group 3390: Usaron [HyperBro] como backdoor de memoria.
 
-[121] "[Orz](https://attack.mitre.org/software/S0229) is a custom JavaScript backdoor used by [Leviathan](https://attack.mitre.org/groups/G0065). It was observed being used in 2014 as well as in August 2017 when it was dropped by Microsoft Publisher files. (Citation: Proofpoint Leviathan Oct 2017) (Citation: FireEye Periscope March 2018)"   
-
-[128] "[PUNCHBUGGY](https://attack.mitre.org/software/S0196) is a backdoor malware used by [FIN8](https://attack.mitre.org/groups/G0061) that has been observed targeting POS networks in the hospitality industry. (Citation: Morphisec ShellTea June 2019)(Citation: FireEye Fin8 May 2016) (Citation: FireEye Know Your Enemy FIN8 Aug 2016)" 
-
-[120] "[OopsIE](https://attack.mitre.org/software/S0264) is a Trojan used by [OilRig](https://attack.mitre.org/groups/G0049) to remotely execute commands as well as upload/download files to/from victims. (Citation: Unit 42 OopsIE! Feb 2018)"
-
-[142] "[RDAT](https://attack.mitre.org/software/S0495) is a backdoor used by the suspected Iranian threat group [OilRig](https://attack.mitre.org/groups/G0049). [RDAT](https://attack.mitre.org/software/S0495) was originally identified in 2017 and targeted companies in the telecommunications sector.(Citation: Unit42 RDAT July 2020)"   
- 
- 
-
-#relacionar grupos con software usado en attack
-
+Para profundizar más, podríamos haber relacionado las debilidades con las tools usadas para atacar.
+                                                                                                                                            
 ## ¿Cómo podemos protegernos?
+
+Hemos tenido en cuenta las tecnicas de defensa de shield (sección 1.4) y empezaremos por los ataques a las cuentas de usuario que se podrían haber defendido mediante la creación de 'Decoy Account' y 'Decoy Credentials' para poder engañar a los atacantes y hacerles acceder a 'Decoy systems' o tambien llamados honeypots y monitorizarles su actividad con un sistema centralizado de analisis y alerta por 'Behavioral Analysis' y 'System Activity Monitoring'.
+
+Para la escalada de privilegios, podríamos haber limitado los 'Admin Access' para poder ejecutar ciertas tareas y implementar buenos 'Security Controls' deshabilitando los autorun's en dispositivos USB, modificando politicas de grupo y reforzando los firewalls.
+
+Finalmente, observar el trafico de red mediante 'PCAP Collection' y ver por donde se mueve y exprimir muchas más información de cada proceso con 'Burn-In'.
+
 
 ## ¿Qué podemos hacer para prevenir futuros ataques?
 
+Mitigation att&ck
+
+mitigation capec
+
+> raw_cwes$cwe[600,]$Modes_Of_Introduction
+[1] "[\n\t{\n\t\t\"phase\" : \"Architecture and Design\",\n\t\t\"note\" : \"OMISSION: This weakness is caused by missing a security tactic during the architecture and design phase.\"\n\t},\n\t{\n\t\t\"phase\" : \"Implementation\"\n\t}\n]"
+
+
 ## ¿Sería posible predecir ataques?
 
+Es una pregunta muy abierta y complicada. Creo que si emplearamos threat intelligence para estudiar cierta información que circula por las redes, podríamos tener una idea de cuando, como y a quien podrían atacar.
+
+Tambien con un sistema de firewalls y de monitorización muy potente donde cada traza o petición inusual se hiciera por parte de actores no legitimos, se podría llegar a la conclusión de que estan escaneando o reconociendo cierta infraestructura o sistema para despues poderlo atacar.
+
+Finalmente, pasando una auditoría y viendo los puntos debiles, veríamos por donde se podrían colar los atacantes.
 
 
